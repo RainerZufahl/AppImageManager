@@ -1,0 +1,18 @@
+#!/bin/sh
+
+case $1 in
+
+  install)
+    echo $2
+    ;;
+
+  *)
+    echo "Usage: (install | remove | update)
+      
+      - install <package>: Downloads the AppImage and generates the desktop file.
+      - remove <package>: Remove the AppImage and it's desktop file.
+      - update: Update all installed AppImages.
+
+      "
+    ;;
+esac
