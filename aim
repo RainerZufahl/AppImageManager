@@ -1,10 +1,22 @@
 #!/bin/sh
 
+storage="$HOME/.aim/"
+
 case $1 in
 
   install)
-    echo $2
+    curl -o "$storage/repo" https://raw.githubusercontent.com/miguelrcborges/AppImageMan/main/repo
+    link=$(grep "$2 " "$storage/repo")
+    
+
+    if [ -z "$link" ]; then
+      echo Package not found.
+      exit
+    fi
+
+    echo heyooo
     ;;
+
 
   *)
     echo "Usage: (install | remove | update)
