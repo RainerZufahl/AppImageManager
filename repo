@@ -2,3 +2,6 @@ slippi 2.1.10 https://github.com/project-slippi/slippi-launcher/releases/downloa
 slippi-launcherless 2.3.3 https://github.com/project-slippi/Ishiiruka/releases/download/v2.3.3/Slippi_Online-x86_64.AppImage
 bitwarden 1.30.0 https://vault.bitwarden.com/download/?app=desktop&platform=linux
 keepassxc 2.6.6 https://github.com/keepassxreboot/keepassxc/releases/download/2.6.6/KeePassXC-2.6.6-x86_64.AppImage
+schildichat 1.9.8 https://github.com/SchildiChat/schildichat-desktop/releases/download/v1.9.8-sc.1/SchildiChat-1.9.8-sc.1.AppImage
+neochat 198 https://binary-factory.kde.org/job/NeoChat_Nightly_appimage/lastSuccessfulBuild/artifact/neochat-master-198-linux-64-gcc.NeoChat_Nightly_appimage
+discord 24.10.2021 https://github.com/simoniz0r/Discord-AppImage/releases/download/discord-stable/discord-x86_64.AppImage
