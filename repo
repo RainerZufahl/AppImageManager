@@ -1,2 +1,6 @@
 slippi 2.1.10 https://github.com/project-slippi/slippi-launcher/releases/download/v2.1.10/Slippi-Launcher-2.1.10-x86_64.AppImage
-slippi-launcherless 2.3.3. https://github.com/project-slippi/Ishiiruka/releases/download/v2.3.3/Slippi_Online-x86_64.AppImage
+slippi-launcherless 2.3.3 https://github.com/project-slippi/Ishiiruka/releases/download/v2.3.3/Slippi_Online-x86_64.AppImage
+godot 3.4.2 https://downloads.tuxfamily.org/godotengine/3.4.2/Godot_v3.4.2-stable_x11.64.zip
+godot-mono 3.4.2 https://downloads.tuxfamily.org/godotengine/3.4.2/mono/Godot_v3.4.2-stable_mono_x11_64.zip
+bitwarden 1.30.0 https://vault.bitwarden.com/download/?app=desktop&platform=linux
+keepassxc 2.6.6 https://github.com/keepassxreboot/keepassxc/releases/download/2.6.6/KeePassXC-2.6.6-x86_64.AppImage
