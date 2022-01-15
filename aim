@@ -14,9 +14,32 @@ case $1 in
       exit
     fi
 
-    echo heyooo
+    cd $storage
+    curl -o "$2.AppImage" -L $(echo $link | cut -d " " -f 3) 
+    chmod +x "$2.AppImage"
+    ./$2.AppImage --appimage-extract
+    
+    desktop=$(find squashfs-root/*.desktop)
+    sed -i '/Exec=/d' $desktop
+    echo "Exec=$storage$2.AppImage" >> $desktop
+    mv $desktop $HOME/.local/share/applications/$2-appimage.desktop
+    rm -rf squashfs-root
+
+    echo "$2 was installed with success."
     ;;
 
+
+  remove)
+    cd $storage
+    if ! test -f "./$2.AppImage"; then
+      echo "$2 isn't installed."
+      exit
+    fi
+
+    rm $2.AppImage $HOME/.local/share/applications/$2-appimage.desktop
+
+    echo "$2 was uninstalled."
+    ;;
 
   *)
     echo "Usage: (install | remove | update)
