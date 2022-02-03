@@ -7,6 +7,7 @@ Install and remove Appimages easly
 git clone https://github.com/miguelrcborges/AppImageMan
 sudo mv AppImageMan/aim /usr/bin/
 rm -rf AppImageMan
+mkdir $HOME/.aim
 ```
 
 # Uninstalling
