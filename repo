@@ -1,6 +1,6 @@
-slippi 2.1.10 https://github.com/project-slippi/slippi-launcher/releases/download/v2.1.10/Slippi-Launcher-2.1.10-x86_64.AppImage
-slippi-launcherless 2.3.3 https://github.com/project-slippi/Ishiiruka/releases/download/v2.3.3/Slippi_Online-x86_64.AppImage
-bitwarden 1.30.0 https://vault.bitwarden.com/download/?app=desktop&platform=linux
+slippi 2.1.14 https://github.com/project-slippi/slippi-launcher/releases/download/v2.1.14/Slippi-Launcher-2.1.14-x86_64.AppImage
+slippi-launcherless 2.4.0 https://github.com/project-slippi/Ishiiruka/releases/download/v2.4.0/Slippi_Online-x86_64.AppImage
+bitwarden latest https://vault.bitwarden.com/download/?app=desktop&platform=linux
 keepassxc 2.6.6 https://github.com/keepassxreboot/keepassxc/releases/download/2.6.6/KeePassXC-2.6.6-x86_64.AppImage
-schildichat 1.9.8 https://github.com/SchildiChat/schildichat-desktop/releases/download/v1.9.8-sc.1/SchildiChat-1.9.8-sc.1.AppImage
-discord 24.10.2021 https://github.com/simoniz0r/Discord-AppImage/releases/download/discord-stable/discord-x86_64.AppImage
+obsidian 0.13.23 https://github.com/obsidianmd/obsidian-releases/releases/download/v0.13.23/Obsidian-0.13.23.AppImage
+logseq 0.6.1 https://github.com/logseq/logseq/releases/download/0.6.1/Logseq-linux-x64-0.6.1.AppImage
