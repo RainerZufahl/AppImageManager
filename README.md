@@ -1,5 +1,5 @@
 # AppImageMan
-Install and remove Appimages easly
+Install and remove Appimages easily
 
 # Installing and Updating
 
