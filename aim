@@ -20,8 +20,11 @@ case $1 in
     ./$2.AppImage --appimage-extract
     
     desktop=$(find squashfs-root/*.desktop)
+    png=$(find squashfs-root/*.png)
     sed -i '/Exec=/d' $desktop
+    sed -i '/Icon=/d' $desktop
     echo "Exec=$storage$2.AppImage" >> $desktop
+    echo "Icon=$storage$2.png" >> $desktop
     mv $desktop $HOME/.local/share/applications/$2-appimage.desktop
     rm -rf squashfs-root
 
@@ -36,7 +39,7 @@ case $1 in
       exit
     fi
 
-    rm $2.AppImage $HOME/.local/share/applications/$2-appimage.desktop
+    rm $2.AppImage $2.png $HOME/.local/share/applications/$2-appimage.desktop
 
     echo "$2 was uninstalled."
     ;;
