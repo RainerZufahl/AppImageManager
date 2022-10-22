@@ -21,6 +21,7 @@ case $1 in
     
     desktop=$(find squashfs-root/*.desktop)
     png=$(find squashfs-root/*.png)
+    mv $png ..
     sed -i '/Exec=/d' $desktop
     sed -i '/Icon=/d' $desktop
     echo "Exec=$storage$2.AppImage" >> $desktop
