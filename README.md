@@ -12,9 +12,7 @@ Core code taken from [Borga's AppImageMan](https://github.com/miguelrcborges/App
 # Installing and Updating
 
 ```bash
-git clone https://github.com/RainerZufahl/AppImageManager
-sudo mv AppImageManager/aim /usr/bin/
-rm -rf AppImageMan
+sudo curl -o /usr/bin/aim -L https://raw.githubusercontent.com/RainerZufahl/AppImageManager/main/aim
 ```
 
 # Uninstalling
