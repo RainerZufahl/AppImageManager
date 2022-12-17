@@ -1,7 +1,7 @@
 # AppImageManager
 **Install and remove AppImages easily**
 
-Core code taken from [Borga's AppImageMan](https://github.com/miguelrcborges/AppImageMan), with a lot of generalization, help texts and error catching added.
+Core code taken from [Boga's AppImageMan](https://github.com/miguelrcborges/AppImageMan), with a lot of generalization, help texts and error catching added.
 
 # Features
 
