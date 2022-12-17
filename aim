@@ -4,7 +4,7 @@
 
 # System Variables, dont change
 scriptname=$(basename $0)
-version="1.1.1"
+version="1.1.2"
 
 # You can change this path if you want to use a different storage location for your AppImage files
 # The trailing "/" at the end is crucial and cant be removed
@@ -125,7 +125,11 @@ If you need a list of installed AppImages, use '$scriptname -l'."
     if [[ ${gitver//./} -gt ${version//./} ]]
     then
       read -p "Update from $version to $gitver available. Update now? [Y/n] " confirmUpdate
-      if [[ $confirmUpdate = "y" ]] || [[ $confirmUpdate = "" ]]; then sudo curl -o /usr/bin/aim -L https://raw.githubusercontent.com/RainerZufahl/AppImageManager/main/aim; exit 0
+      if [[ $confirmUpdate = "y" ]] || [[ $confirmUpdate = "" ]]
+      then
+        sudo curl -o /usr/bin/aim -sL https://raw.githubusercontent.com/RainerZufahl/AppImageManager/main/aim
+        echo "Update completed"
+        exit 0
       else exit 0
       fi
     else echo "Newest Version installed"; exit 0
@@ -144,7 +148,7 @@ Easily manage AppImage files
 -u     Check for updates
 -h     Display this help dialogue
 
-App Version: $version"
+Script version $version"
   ;;
 
 esac

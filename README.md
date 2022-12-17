@@ -8,7 +8,8 @@ Core code taken from [Borga's AppImageMan](https://github.com/miguelrcborges/App
 - Quickly install .appimage files by creating .desktop files in your user application folder.
 - List AppImages currently installed 
 - Easily remove the desktop files associated with AppImages from your application folder, optionally removing the AppImage itself
-- Internal Update checking with integrated update function
+- Rename the script to anything you want - functions adjust accordingly
+- Update checking and downloading
 
 # Installing and Updating
 
