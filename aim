@@ -16,9 +16,9 @@ setup() {
   echo "Seems like you don't have a folder for AppImages yet.
 The folder will now be created at ${storage}.
 "
-  read -p "Confirm [Y/n]: " confirm_setup
+  read -p "Confirm [Y/n]: " confirmSetup
 
-  if [[ $confirm_setup = "y" ]] || [[ $confirm_setup = "" ]]
+  if [[ $confirmSetup = "y" ]] || [[ $confirmSetup = "" ]]
   then
     mkdir -p $storage
   else
@@ -94,9 +94,9 @@ If you need a list of installed AppImages, use '$scriptname -l'."
       removeAppName=$(basename $removeAppPath | sed 's/.desktop//g')
       
       echo "Found $removeAppName in your applications folder."
-      read -p "Remove app? [Y/n] " confirm_remove
+      read -p "Remove app? [Y/n] " confirmRemove
 
-      if [[ $confirm_remove = "y" ]] || [[ $confirm_remove = "" ]]
+      if [[ $confirmRemove = "y" ]] || [[ $confirmRemove = "" ]]
       then
         rm -f $removeAppPath
         echo -e "Removed $removeAppName from the system.\n"
@@ -118,6 +118,19 @@ If you need a list of installed AppImages, use '$scriptname -l'."
     cd $HOME/.local/share/applications && grep -ir "appimage/.*\.appimage" * | awk -F: '{ print $1 }' | sed 's/.desktop//g'
   ;;
 
+  -u)
+    echo "Checking for Updates..."
+    gitver=$(curl -sL https://raw.githubusercontent.com/RainerZufahl/AppImageManager/main/aim | grep "version=" | awk -F\" '{print $2}')
+    if [[ ${gitver//./} -gt ${version//./} ]]
+    then
+      read -p "Update available. Update now? [Y/n] " confirmUpdate
+      if [[ $confirmUpdate = "y" ]] || [[ $confirmUpdate = "" ]]; then sudo curl -o /usr/bin/aim -L https://raw.githubusercontent.com/RainerZufahl/AppImageManager/main/aim; exit 0
+      else exit 0
+      fi
+    else echo "Newest Version installed"; exit 0
+    fi
+  ;;
+
   # Show help screen
   *)
     echo "Usage: $scriptname [OPTION] [FILE]
@@ -127,6 +140,7 @@ Easily add AppImage files to the applications list
 -r     Remove AppImage from system directories
 -l     List installed AppImages
 
+-u     Check for updates
 -h     Display this help dialogue
 
 App Version: $version"
