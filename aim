@@ -1,57 +1,126 @@
 #!/bin/sh
 
-storage="$HOME/.aim/"
+## == Global Variables ==
 
-case $1 in
+# System Variables, dont change
+scriptname=$(basename $0)
+version="1.0"
 
-  install)
-    curl -o "$storage/repo" https://raw.githubusercontent.com/miguelrcborges/AppImageMan/main/repo
-    link=$(grep "$2 " "$storage/repo")
-    
+# You can change this path if you want to use a different storage location for your AppImage files
+storage="$HOME/.appimage/"
 
-    if [ -z "$link" ]; then
-      echo Package not found.
-      exit
+## == Functions ==
+
+setup() {
+  echo "Seems like you don't have a folder for AppImages yet.
+The folder will now be created at ${storage}.
+"
+  read -p "Confirm [Y/n]: " confirm_setup
+
+  if [[ $confirm_setup = "y" ]] || [[ $confirm_setup = "" ]]
+  then
+    mkdir -p $storage
+  else
+    echo "Aborting Setup..."
+    exit 1
+  fi
+}
+
+## == Pre-Run Checks ==
+
+ls -d $storage &> /dev/null || setup
+
+if [[ -n $3 ]]; then echo "You have supplied multiple arguments. Please note that you can only install one AppImage at a time. If the filename has spaces, rename the file and remove the spaces."; exit 1; fi
+
+## == Runtime ==
+
+case $1 in 
+
+  # Installing AppImage files
+  -i)
+    if [[ -z $2 ]]
+    then
+      echo "Usage: $scriptname -i [FILE]
+The supplied .appimage file will be copied to the AppImage directory, and a .desktop file created in the user applications directory"
+
+    else
+      filepath=$(realpath $2)
+      if [[ ! -e $filepath ]]; then echo "Couldn't find specified file."; exit 1; fi
+      if [[ ! "$filepath" == *.appimage ]]; then echo "Supplied file doesn't seem to be a .appimage file."; exit 1; fi
+
+      filename=($(echo $filepath | awk -F/ '{ print $NF }'))
+
+      mv $filepath $storage$filename
+      cd $storage
+
+      chmod +x "$filename"
+      ./$filename --appimage-extract
+
+      desktop=$(find squashfs-root/*.desktop)
+      png=$(find squashfs-root/*.png)
+      cp -L $png ${filename//.appimage/.png}
+      sed -i '/Exec=/d' $desktop
+      sed -i '/Icon=/d' $desktop
+      echo "Exec=$storage$filename" >> $desktop
+      echo "Icon=$storage${filename//.appimage/.png}" >> $desktop
+      mv $desktop $HOME/.local/share/applications/${filename//.appimage/.desktop}
+      rm -rf squashfs-root
+
+      echo "$filename was installed with success."
+      exit 0
     fi
+  ;;
+  
+  # Removing AppImage files
+  -r)
+    if [[ -z $2 ]]
+    then
+      echo "Usage: $scriptname -r [NAME]
+The supplied name is fuzzy-searched in the applications directory. The search is case insensitive.
+If you need a list of installed AppImages, use '$scriptname -l'."
 
-    cd $storage
-    curl -o "$2.AppImage" -L $(echo $link | cut -d " " -f 3) 
-    chmod +x "$2.AppImage"
-    ./$2.AppImage --appimage-extract
-    
-    desktop=$(find squashfs-root/*.desktop)
-    png=$(find squashfs-root/*.png)
-    cp -L $png $2.png
-    sed -i '/Exec=/d' $desktop
-    sed -i '/Icon=/d' $desktop
-    echo "Exec=$storage$2.AppImage" >> $desktop
-    echo "Icon=$storage$2.png" >> $desktop
-    mv $desktop $HOME/.local/share/applications/$2-appimage.desktop
-    rm -rf squashfs-root
+    else
+      removeAppPath=$(find $HOME/.local/share/applications -iname \*$2\*) 
+      if [[ -z $removeAppPath ]]; then echo "Couldn't find specified app."; exit 1; fi
 
-    echo "$2 was installed with success."
-    ;;
-
-
-  remove)
-    cd $storage
-    if ! test -f "./$2.AppImage"; then
-      echo "$2 isn't installed."
-      exit
-    fi
-
-    rm $2.AppImage $2.png $HOME/.local/share/applications/$2-appimage.desktop
-
-    echo "$2 was uninstalled."
-    ;;
-
-  *)
-    echo "Usage: (install | remove | update)
+      removeAppName=$(echo $removeAppPath | awk -F/ '{ print $NF }' | sed 's/.desktop//g')
       
-      - install <package>: Downloads the AppImage and generates the desktop file.
-      - remove <package>: Remove the AppImage and it's desktop file.
-      - update: Update all installed AppImages.
+      echo "Found $removeAppName in your applications folder."
+      read -p "Remove app? [Y/n] " confirm_remove
 
-      "
-    ;;
+      if [[ $confirm_remove = "y" ]] || [[ $confirm_remove = "" ]]
+      then
+        read -p "Keep AppImage in .appimage folder? [Y/n] " keep_appimage
+        rm -f $removeAppPath
+        if [[ $keep_appimage = "y" ]] || [[ $keep_appimage = "" ]]; then rm -f $removeAppName.appimage; fi
+        echo "Successfully removed $removeAppName from System."
+        exit 0
+      else
+        echo "Aborting deletion..."
+        exit 1
+      fi
+    fi
+  ;;
+
+  # Listing AppImage Files
+  -l)
+    echo "These are the AppImages currently installed:
+    "
+    cd $HOME/.local/share/applications && grep -r "appimage/.*\.appimage" * | awk -F: '{ print $1 }' | sed 's/.desktop//g'
+  ;;
+
+  # Show help screen
+  *)
+    echo "Usage: $scriptname [OPTION] [FILE]
+Easily add AppImage files to the applications list
+
+-i     Install selected AppImage
+-r     Remove AppImage from system directories
+-l     List installed AppImages
+
+-h     Display this help dialogue
+
+App Version: $version"
+  ;;
+
 esac
