@@ -14,7 +14,7 @@ Core code taken from [Boga's AppImageMan](https://github.com/miguelrcborges/AppI
 # Installing and Updating
 
 ```bash
-sudo curl -o /usr/bin/aim -L https://raw.githubusercontent.com/RainerZufahl/AppImageManager/main/aim
+sudo curl -o /usr/bin/aim -L https://raw.githubusercontent.com/justrainer/AppImageManager/main/aim
 ```
 
 # Uninstalling
